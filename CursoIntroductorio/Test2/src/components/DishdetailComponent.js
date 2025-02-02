@@ -3,6 +3,20 @@ import { Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle } from 're
 
 class DishDetail extends Component {
 
+    renderDish(dish){
+        return (
+            <div className='col-lg-5 col-md-5 col-sm-12 col-xs-12 m-1'>
+                <Card>
+                    <CardImg top src={dish.image} alt={dish.name} />
+                    <CardBody>
+                        <CardTitle>{dish.name}</CardTitle>
+                        <CardText>{dish.description}</CardText>
+                    </CardBody>
+                </Card>
+            </div>
+        )
+    }
+
     renderComments(commentsArray){
         const comments = commentsArray.map((comment) => {
             return (
@@ -23,15 +37,7 @@ class DishDetail extends Component {
         const { selectedDish } = this.props;
         return (
             <div className='row'>
-                <div className='col-lg-5 col-md-5 col-sm-12 col-xs-12 m-1'>
-                    <Card>
-                        <CardImg top src={selectedDish.image} alt={selectedDish.name} />
-                        <CardBody>
-                            <CardTitle>{selectedDish.name}</CardTitle>
-                            <CardText>{selectedDish.description}</CardText>
-                        </CardBody>
-                    </Card>
-                </div>
+                {this.renderDish(selectedDish)}
                 <div className='col-lg-5 col-md-5 col-sm-12 col-xs-12 m-1'>
                     <h4>Comments</h4>
                     {this.renderComments(selectedDish.comments)}
