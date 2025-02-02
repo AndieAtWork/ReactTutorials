@@ -5,21 +5,11 @@ import DishDetail from './DishdetailComponent';
 class Menu extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-          selectedDish: null,
-          dishes: props.dishes
-        }
-    }
-
-    onDishSelect(dish){
-      this.setState({
-        selectedDish: dish
-      });
     }
 
     renderDish(dish){
       if (dish != null){
-        var dishObject = this.state.dishes.find(item => item["id"] === dish);
+        var dishObject = this.props.dishes.find(item => item["id"] === dish);
         return(
           <DishDetail selectedDish={dishObject}/>
         )
@@ -35,8 +25,7 @@ class Menu extends Component {
       const menu = this.props.dishes.map((dish) => {
         return (
           <div className="col-lg-5 col-md-5 col-sm-12 col-xs-12 m-1">
-            <Card key={dish.id}
-              onClick={() => this.onDishSelect(dish.id)}>
+            <Card key={dish.id} onClick={() => this.props.onClick(dish.id)}>
               <CardImg width="100%" src={dish.image} alt={dish.name} />
               <CardImgOverlay>
                   <CardTitle>{dish.name}</CardTitle>
@@ -50,11 +39,6 @@ class Menu extends Component {
         <div className="container">
             <div className="row">
                 {menu}
-            </div>
-            <div className="row">
-              <div  className="col-12">
-                {this.renderDish(this.state.selectedDish)}
-              </div>
             </div>
         </div>
       );
